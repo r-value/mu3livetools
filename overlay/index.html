@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mu3 Live Overlay</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="lib/reconnecting-websocket.js"></script>
+    <script src="https://unpkg.com/numeral@2.0.6/src/numeral.js"></script>
+    <script src="https://unpkg.com/vue-digit-animation@0.3.1/lib/vue-digit-animation.global.js"></script>
+    <script src="lib/smart-marquee.js"></script>
+    <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet">
+    <link rel="stylesheet" href="style/mu3.css">
+</head>
+<body>
+    <div id="app">
+        <div class="game-mu3">
+            <!-- RATING ANALYSIS -->
+            <div class="mu3-item">
+                <div style="display: flex; gap: 10px; font-weight: 500;">
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 25%;">
+                        <div class="score-title" style="margin-top: 0;">BEST 50</div>
+                        <transition name="fade" mode="out-in">
+                            <keep-alive>
+                                <digit-animation-group v-if="showRatingDelta && mu3.b50_delta != 0" size="20px" format="+0.000" use-ease="Quit.easeInOut" :digits="mu3.b50_delta" :duration="0" class="rating-delta"></digit-animation-group>
+                                <digit-animation-group v-else size="20px" format="00.000" use-ease="Quit.easeInOut" :digits="mu3.b50" :duration="500"></digit-animation-group>
+                            </keep-alive>
+                        </transition>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 45%;">
+                        <div class="score-title" style="margin-top: 0;">NEW 10</div>
+                        <transition name="fade" mode="out-in">
+                            <keep-alive>
+                                <div v-if="showRatingDelta && mu3.n10_delta != 0" style="display: flex; gap: 3px;" class="rating-delta">
+                                    <digit-animation-group size="20px" format="+0.000" use-ease="Quit.easeInOut" :digits="mu3.n10_delta" :duration="0"></digit-animation-group>
+                                    <div style="font-size: 20px; line-height: 20px;">➔</div>
+                                    <digit-animation-group size="20px" format="+0.000" use-ease="Quit.easeInOut" :digits="mu3.n10_raw_delta" :duration="0"></digit-animation-group>
+                                </div>
+                                <div v-else style="display: flex; gap: 3px;">
+                                    <digit-animation-group size="20px" format="00.000" use-ease="Quit.easeInOut" :digits="mu3.n10" :duration="500"></digit-animation-group>
+                                    <div style="font-size: 20px; line-height: 20px;">➔</div>
+                                    <digit-animation-group size="20px" format="+0.000" use-ease="Quit.easeInOut" :digits="mu3.n10_raw" :duration="500"></digit-animation-group>
+                                </div>
+                            </keep-alive>
+                        </transition>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 25%;">
+                        <div class="score-title" style="margin-top: 0;">PSCORE 50</div>
+                        <transition name="fade" mode="out-in">
+                            <keep-alive>
+                                <digit-animation-group v-if="showRatingDelta && mu3.p50_delta != 0" size="20px" format="+0.000" use-ease="Quit.easeInOut" :digits="mu3.p50_delta" :duration="0" class="rating-delta"></digit-animation-group>
+                                <digit-animation-group v-else size="20px" format="+0.000" use-ease="Quit.easeInOut" :digits="mu3.p50" :duration="500"></digit-animation-group>
+                            </keep-alive>
+                        </transition>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MUSIC INFO -->
+            <div class="mu3-item" :class="'bg-' + mu3.difficulty.toLowerCase()" style="display: flex; gap: 10px; align-items: flex-start;">
+                <img :src="'/jacket/' + mu3.musicId" width="150" height="150">
+                <div style="min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                    <div class="music-info-box" style="display: flex; flex-direction: column; gap: 8px;">
+                        <div class="music-title">
+                            <smart-marquee :text="mu3.musicTitle" :speed="30" :gap="50"></smart-marquee>
+                        </div>
+                        <div class="music-artist">
+                            <smart-marquee :text="mu3.musicArtist" :speed="30" :gap="50"></smart-marquee>
+                        </div>
+                    </div>
+                    <div class="music-info-box" style="display: flex; flex-direction: column; gap: 2px;">
+                        <div style="display: flex; align-items: center;">
+                            <div class="music-level" style="width: 40%;">
+                                {{ mu3.musicLevel.toFixed(1) }}
+                            </div>
+                            <div class="music-difficulty" style="width: 60%;">
+                                {{ mu3.difficulty }}
+                            </div>
+                        </div>
+                        <div class="notes-designer">
+                            <smart-marquee :text="mu3.designer" :speed="30" :gap="50"></smart-marquee>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- IN MUSIC PLAY DATA -->
+            <div class="mu3-item" v-if="mu3.isInGame && mu3.isMusicSelected">
+                <div style="display: flex; gap: 20px;">
+                    <div style="display: flex;" class="tech-score">
+                        <digit-animation-group size="60px" format="0000000" use-ease="Quit.easeInOut" :digits="mu3.current.techScore" :duration="100"></digit-animation-group>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                        <div class="score-title">RATING</div>
+                        <digit-animation-group size="35px" format="00.000" use-ease="Quit.easeInOut" :digits="mu3.current.rating" :duration="100"></digit-animation-group>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <div style="width: 40%; text-align: center;">
+                        = {{mu3.current.scoreNote}} + {{mu3.current.scoreBell}}
+                    </div>
+                    <div style="width: 60%; text-align: center;">
+                        <span style="font-weight: 500;">{{ ordinal(mu3.playCount+1) }}</span> Play <span style="font-weight: 500;">{{ ordinal(mu3.retryCount) }}</span> Try
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <div style="display: flex; width: 30%; flex-direction: column; align-items: center;">
+                        <div :class="{'platinum-rainbow': mu3.current.platinumStar > 5, 'platinum-star': mu3.current.platinumStar > 0, 'platinum-none': mu3.current.platinumStar == 0}">
+                            <span v-for="i in Math.min(mu3.current.platinumStar, 5)" :key="i">★</span>
+                            <span v-if="mu3.current.platinumStar === 0">☆</span>
+                        </div>
+                        <div style="display: flex; width:100%; gap: 20px; font-size: 10px; font-weight: 600;">
+                            <div style="width: 50%; text-align: right;">
+                                +{{ mu3.current.fromLastPlatinum }}
+                            </div>
+                            <div style="width: 50%; text-align: left;">
+                                -{{ mu3.current.toNextPlatinum }}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 5px; width: 40%; align-items: center;">
+                        <div class="platinum-score">
+                            {{ mu3.current.platinumScore }}
+                        </div>
+                        <div class="platinum-max">
+                            / {{ mu3.platinumScoreMax }}
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0;">
+                        <div class="score-title">PS RATING</div>
+                        <div style="font-size: 20px; font-weight: 450;">
+                            +{{ (mu3.current.platinumRating / 1000.0).toFixed(3) }}
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <div style="display: flex; width: 50%; flex-direction: column; align-items: center; gap: 5px;">
+                        <div class="score-title">CURRENT BADGE</div>
+                        <div style="display: flex; gap: 5px;">
+                            <div v-if="mu3.current.technicalRank == 'SSS+'" class="badge badge-active badge-score"><div>SSS</div><div class="badge-plus">+</div></div>
+                            <div v-else-if="mu3.current.technicalRank != ''" class="badge badge-active badge-score"><div>{{ mu3.current.technicalRank }}</div></div>
+                            <div v-else class="badge badge-inactive badge-score"><div>S</div></div>
+                            <div v-if="mu3.current.isAllBreakPlus" class="badge badge-active"><div>ALL<br>BREAK</div><div class="badge-plus">+</div></div>
+                            <div v-else-if="mu3.current.isAllBreak" class="badge badge-active"><div>ALL<br>BREAK</div></div>
+                            <div v-else-if="mu3.current.isFullCombo" class="badge badge-fc"><div>FULL<br>COMBO</div></div>
+                            <div v-else class="badge badge-inactive"><div>FC</div></div>
+                            <div v-if="mu3.current.isFullBell" class="badge badge-active"><div>FULL<br>BELL</div></div>
+                            <div v-else class="badge badge-inactive"><div>FB</div></div>
+                        </div>
+                    </div>
+                    <div style="display: flex; width: 50%; flex-direction: column; align-items: center; gap: 5px;">
+                        <div class="score-title">ACHIEVED BADGE</div>
+                        <div style="display: flex; gap: 5px;">
+                            <div v-if="mu3.best.isAllBreakPlus" class="badge badge-active"><div>ALL<br>BREAK</div><div class="badge-plus">+</div></div>
+                            <div v-else-if="mu3.best.isAllBreak" class="badge badge-active"><div>ALL<br>BREAK</div></div>
+                            <div v-else-if="mu3.best.isFullCombo" class="badge badge-fc"><div>FULL<br>COMBO</div></div>
+                            <div v-else class="badge badge-inactive"><div>FC</div></div>
+                            <div v-if="mu3.best.isFullBell" class="badge badge-active"><div>FULL<br>BELL</div></div>
+                            <div v-else class="badge badge-inactive"><div>FB</div></div>
+                        </div>
+                    </div>
+                </div>
+                <table class="judge-stats" style="width: 100%; text-align: center; margin-top: 10px;">
+                    <tr>
+                        <th></th>
+                        <th class="counter-fast" style="font-weight: 500;">FAST</th>
+                        <th style="font-weight: 500;">COUNT</th>
+                        <th class="counter-late" style="font-weight: 500;">LATE</th>
+                    </tr>
+                    <tr>
+                        <td class="score-cbreak">C.BREAK</td>
+                        <td class="counter-fast">{{ mu3.judgeCrBreak.early }}</td>
+                        <td class="score-cbreak">{{ mu3.judgeCrBreak.count }}</td>
+                        <td class="counter-late">{{ mu3.judgeCrBreak.late }}</td>
+                    </tr>
+                    <tr>
+                        <td class="score-break">BREAK</td>
+                        <td class="counter-fast">{{ mu3.judgeBreak.early }}</td>
+                        <td class="score-break">{{ mu3.judgeBreak.count }}</td>
+                        <td class="counter-late">{{ mu3.judgeBreak.late }}</td>
+                    </tr>
+                    <tr>
+                        <td class="score-hit">HIT</td>
+                        <td class="counter-fast">{{ mu3.judgeHit.early }}</td>
+                        <td class="score-hit">{{ mu3.judgeHit.count }}</td>
+                        <td class="counter-late">{{ mu3.judgeHit.late }}</td>
+                    </tr>
+                    <tr>
+                        <td class="score-miss">MISS</td>
+                        <td>-</td>
+                        <td class="score-miss">{{ mu3.judgeMiss }}</td>
+                        <td>-</td>
+                    </tr>
+                </table>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <div style="display: flex; gap: 10px; width: 50%" class="score-damage">
+                        <div style="width: 75%; text-align: center;">
+                            DAMAGE
+                        </div>
+                        <div style="width: 25%; text-align: center;">
+                            {{ mu3.current.damage }}
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; width: 50%" class="score-bell">
+                        <div style="width: 40%; text-align: center;">
+                            BELL
+                        </div>
+                        <div style="width: 60%; text-align: center;">
+                            {{ mu3.current.totalBell - mu3.current.bellLost }} / {{ mu3.current.totalBell }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IN MUSIC SELECTION, SHOW BEST RECORDS -->
+            <div class="mu3-item" v-if="!mu3.isInGame && mu3.isMusicSelected">
+                <div style="display: flex; gap: 20px;">
+                    <div style="display: flex; gap: 10px;" class="tech-score">
+                        <digit-animation-group size="60px" format="0000000" use-ease="Quit.easeInOut" :digits="mu3.best.techScore" :duration="0" />
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                        <div class="score-title">RATING</div>
+                        <digit-animation-group size="35px" format="00.000" use-ease="Quit.easeInOut" :digits="mu3.best.rating" :duration="0" />
+                    </div>
+                </div>
+                <div style="display: flex; margin-top: 10px;">
+                    <div style="width: 40%; text-align: center; display: flex; align-items: center; justify-content: center; gap: 2px;">
+                        <div style="font-weight: 450;">BPM :</div><div style="width: 30%">{{ mu3.musicBPM }}</div>
+                    </div>
+                    <div style="width: 60%; text-align: center; display: flex; align-items: center; justify-content: center; gap: 2px;">
+                        <div style="font-weight: 450;">PLAY COUNT :</div><div style="width: 25%">{{ mu3.playCount }}</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <div style="display: flex; width: 35%; flex-direction: column; align-items: center;">
+                        <div :class="{'platinum-rainbow': mu3.best.platinumStar > 5, 'platinum-star': mu3.best.platinumStar > 0, 'platinum-none': mu3.best.platinumStar == 0}">
+                            <span v-for="i in Math.min(mu3.best.platinumStar, 5)" :key="i">★</span>
+                            <span v-if="mu3.best.platinumStar === 0">☆</span>
+                        </div>
+                        <div style="display: flex; width:100%; gap: 20px; font-size: 10px; font-weight: 600;">
+                            <div style="width: 50%; text-align: right;">
+                                +{{ mu3.best.fromLastPlatinum }}
+                            </div>
+                            <div style="width: 50%; text-align: left;">
+                                -{{ mu3.best.toNextPlatinum }}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 5px; width: 40%; align-items: center;">
+                        <div class="platinum-score">
+                            {{ mu3.best.platinumScore }}
+                        </div>
+                        <div class="platinum-max">
+                            / {{ mu3.platinumScoreMax }}
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0;">
+                        <div class="score-title">PS RATING</div>
+                        <div style="font-size: 20px; font-weight: 450;">
+                            +{{ (mu3.best.platinumRating / 1000.0).toFixed(3) }}
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <div style="display: flex; width: 50%; flex-direction: column; align-items: center; gap: 5px;">
+                        <div class="score-title">ACHIEVED BADGE</div>
+                        <div style="display: flex; gap: 5px;">
+                            <div v-if="mu3.best.technicalRank == 'SSS+'" class="badge badge-active badge-score"><div>SSS</div><div class="badge-plus">+</div></div>
+                            <div v-else-if="mu3.best.technicalRank != ''" class="badge badge-active badge-score"><div>{{ mu3.best.technicalRank }}</div></div>
+                            <div v-else class="badge badge-inactive badge-score"><div>S</div></div>
+                            <div v-if="mu3.best.isAllBreakPlus" class="badge badge-active"><div>ALL<br>BREAK</div><div class="badge-plus">+</div></div>
+                            <div v-else-if="mu3.best.isAllBreak" class="badge badge-active"><div>ALL<br>BREAK</div></div>
+                            <div v-else-if="mu3.best.isFullCombo" class="badge badge-fc"><div>FULL<br>COMBO</div></div>
+                            <div v-else class="badge badge-inactive"><div>FC</div></div>
+                            <div v-if="mu3.best.isFullBell" class="badge badge-active"><div>FULL<br>BELL</div></div>
+                            <div v-else class="badge badge-inactive"><div>FB</div></div>
+                        </div>
+                    </div>
+                    <div style="display: flex; width: 50%; flex-direction: column; align-items: center; gap: 5px; font-weight: 450;">
+                        <div class="score-title">RATING POSITION</div>
+                        <div v-if="mu3.best.bestRank != 0" class="best-active">
+                            <div v-if="mu3.isCurrentVersion">
+                                New #{{ mu3.best.bestRank }}
+                            </div>
+                            <div v-else>
+                                Best #{{ mu3.best.bestRank }}
+                            </div>
+                        </div>
+                        <div v-else class="best-inactive">
+                            <div>NOT IN BEST</div>
+                        </div>
+                        <div v-if="mu3.best.platinumRank != 0" class="best-active">
+                            <div>PScore #{{ mu3.best.platinumRank }}</div>
+                        </div>
+                        <div v-else class="best-inactive">
+                            <div>NOT IN PScore</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="lib/main.js"></script>
+</body>
+</html>
+

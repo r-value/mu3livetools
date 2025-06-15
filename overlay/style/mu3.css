@@ -1,0 +1,223 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Futura PT', Arial, sans-serif;
+    color: white;
+    background: transparent;
+}
+#app {
+    padding: 0;
+}
+.game-mu3 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.mu3-item {
+    /* background: rgba(0, 0, 0, 0.7); */
+    background: rgb(42, 42, 42);
+    padding: 10px;
+    border-radius: 10px;
+}
+.bg-master {
+    background: rgba(133, 54, 194, 1);
+}
+.bg-expert {
+    background: rgba(255, 13, 138, 1);
+}
+.bg-advanced {
+    background: rgba(255, 165, 0, 1);
+}
+.bg-basic {
+    background: rgba(26, 143, 26, 1);
+}
+.bg-lunatic {
+    padding: 5px;
+    border: 5px dotted red;
+    background: rgba(255, 255, 255, 1);
+}
+.achievement {
+    color: #ffd700;
+    padding: 0 5px;
+}
+.platinum-none {
+    font-weight: bold;
+    font-size: 20px;
+}
+.platinum-star {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 20px;
+}
+.platinum-rainbow {
+    font-weight: bold;
+    font-size: 20px;
+    background: linear-gradient(to bottom, #ff4747 40%, #ffa500 45%, #ffff00 50%, #22e022 60%, #3c8cfd 65%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* animation: rainbow 5s linear infinite; */
+}
+.tech-score {
+    font-weight: 450;
+}
+.score-cbreak {
+    color: #fcfd09;
+    font-weight: 500;
+}
+.score-break {
+    color: #ec8518;
+    font-weight: 500;
+}
+.score-hit {
+    color: #0bfff6;
+    font-weight: 500;
+}
+.score-miss{
+    color: #b4b4b4;
+    font-weight: 500;
+}
+.score-bell {
+    color: #fcfd09;
+    font-weight: 500;
+}
+.score-damage {
+    color: #e7685c;
+    font-weight: 500;
+}
+.rating-delta {
+    color: #FF4C3B;
+    /* color: #ed5907; */
+}
+.badge {
+    display:flex;
+    height: 45px;
+    width: 45px;
+    border-radius: 45px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 15px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    position: relative;
+}
+.badge-score {
+    font-size: 20px;
+    font-weight: 500;
+}
+.badge-plus {
+    position: absolute;
+    top: 4px;
+    right: 1px;
+    font-size: 20px;
+    font-weight: 800;
+    text-shadow: rgb(255, 237, 156) 0 0 2px, rgb(255, 237, 156) 0 0 2px, rgb(255, 237, 156) 0 0 2px, rgb(255, 237, 156) 0 0 2px;
+}
+.badge-active {
+    background: rgb(255, 237, 156);
+    color: rgb(25, 145, 145);
+    border: 5px solid rgb(25, 99, 99);
+    text-shadow: rgb(255, 237, 156) 0 0 2px, rgb(255, 237, 156) 0 0 2px, rgb(255, 237, 156) 0 0 2px, rgb(255, 237, 156) 0 0 2px;
+}
+.badge-inactive {
+    background: rgba(0, 0, 0, 0.7);
+    color: #777777;
+    border: 5px solid rgba(0, 0, 0, 0);
+}
+.badge-fc {
+    background: rgb(255, 239, 8);
+    color: rgb(105, 75, 27);
+    border: 5px solid rgb(105, 75, 27);
+    font-size: 12px;
+    line-height: 12px;
+}
+.digit.is-symbol {
+    width: auto !important;
+}
+.counter-fast {
+    color: rgb(52, 161, 194);
+}
+.counter-late {
+    color: rgb(166, 61, 60);
+}
+.best-active {
+    width: 100%;
+    height: 25px;
+    border-radius: 20px;
+    background: rgb(255, 237, 156);
+    color: rgb(25, 99, 99);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.best-inactive {
+    width: 100%;
+    height: 25px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #777777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.score-title {
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'Futura PT', Arial, Helvetica, sans-serif;
+    margin-top: 5px;
+}
+.music-artist {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    font-family: 'FOT-Seurat ProN', '幼圆', sans-serif;
+    line-height: 20px;
+}
+.music-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20px;
+    font-family: 'FOT-Seurat ProN', '幼圆', sans-serif;
+    line-height: 25px;
+}
+.music-level {
+    font-size: 35px;
+    line-height: 40px;
+    font-weight: 450;
+    text-align: center;
+}
+.music-difficulty {
+    font-weight: 600;
+    text-align: center;
+}
+.platinum-max {
+    font-size: 20px;
+}
+.platinum-score {
+    font-size: 30px;
+    font-weight: 500;
+}
+.music-info-box {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    padding: 8px;
+}
+.notes-designer {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'FOT-Seurat ProN', '幼圆', sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
