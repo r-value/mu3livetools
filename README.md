@@ -48,3 +48,8 @@ Currently supports version `1.50` only. Not tested on version `1.51`. Version `1
 ## Build from source
 
 Put game assembly `Assembly-CSharp.dll` to `lib/` and use `dotnet build`
+
+## Known issues
+
+ * This mod may crash the game if you have malformed option data installed with missing music jackets.
+ * This mod relies on specific scene sequences to synchronize state, and scene-skipping mods may cause it to malfunction.
