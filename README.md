@@ -28,6 +28,11 @@ Supported data:
    + Counters of all note judgements with fast/late counter
    + Bell count in minus style
    + Current damage count
+## Demo
+
+https://github.com/user-attachments/assets/baf57d73-8b9d-4679-ae08-bb2e4f881200
+
+https://github.com/user-attachments/assets/650c7f36-503a-48a1-be22-9209c5188635
 
 ## Usage
 
