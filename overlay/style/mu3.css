@@ -172,7 +172,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 15px;
-    font-family: 'FOT-Seurat ProN', '幼圆', sans-serif;
+    font-family: 'FOT-Seurat ProN', 'Kosugi Maru', sans-serif;
     line-height: 20px;
 }
 .music-title {
@@ -180,7 +180,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 20px;
-    font-family: 'FOT-Seurat ProN', '幼圆', sans-serif;
+    font-family: 'FOT-Seurat ProN', 'Kosugi Maru', sans-serif;
     line-height: 25px;
 }
 .music-level {
@@ -209,7 +209,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-family: 'FOT-Seurat ProN', '幼圆', sans-serif;
+    font-family: 'FOT-Seurat ProN', 'Kosugi Maru', sans-serif;
     font-size: 12px;
     line-height: 15px;
 }

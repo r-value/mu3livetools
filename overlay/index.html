@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/vue-digit-animation@0.3.1/lib/vue-digit-animation.global.js"></script>
     <script src="lib/smart-marquee.js"></script>
     <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet">
+    <link href="https://fonts.loli.net/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/mu3.css">
 </head>
 <body>
@@ -96,10 +97,10 @@
                     </div>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <div style="width: 40%; text-align: center;">
-                        = {{mu3.current.scoreNote}} + {{mu3.current.scoreBell}}
+                    <div style="width: 50%; text-align: left; padding-left: 5px;">
+                        = {{mu3.current.scoreNote}} + {{mu3.current.scoreBell}} {{ mu3.current.damage > 0 ? '− ' + mu3.current.damage * 10 : '' }}
                     </div>
-                    <div style="width: 60%; text-align: center;">
+                    <div style="width: 50%; text-align: center;">
                         <span style="font-weight: 500;">{{ ordinal(mu3.playCount+1) }}</span> Play <span style="font-weight: 500;">{{ ordinal(mu3.retryCount) }}</span> Try
                     </div>
                 </div>
