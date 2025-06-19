@@ -40,7 +40,7 @@ This mod requires [BepInEx](https://github.com/BepInEx/BepInEx). Make sure you h
 
 Extract the released archive to your `BepInEx/plugins` folder.
 
-In OBS, add a Browser Source with URL of `http://localhost:9715/index.html`, width of 400px, height of 700px. Note that currently the web overlay is not designed for various width/height.
+In OBS, add a Browser Source with URL of `http://localhost:9715/default.html`, width of 400px, height of 700px. Note that currently the web overlay is not designed for various width/height.
 
 If you haven't started your game, start the game and refresh the browser source.
 
