@@ -26,7 +26,7 @@ Supported data and functions:
    + Current T-Score in minus style[^3], including subscores for Notes and Bells
    + Current T-Score Rating, which coresponds to current T-Score and will-be-achieved Badges
    + Current P-Score, Stars and P-Score Rating in minus style
-   + Play number and retry count of current session
+   + Play number and retry count[^4] of current session
    + Will-be-achieved Badges in current gameplay
    + Achieved Badges in previous records
    + Counters of all note judgements, including Fast and Late counters
@@ -69,3 +69,5 @@ Put game assembly `Assembly-CSharp.dll` to `lib/` and use `dotnet build`
 [^2]:Per-chart P-Score Rating is based on **Stars count**. Refer [here](https://silentblue.remywiki.com/ONGEKI:Rating#Star_rating_(Re:Fresh)) for further definitions.
 
 [^3]:Minus style is a scoring method that starts from the highest score and deducts corresponding points for mistakes.
+
+[^4]:Retry function is provided by [BetterGiveUp](https://www.rainycolor.org/package/7EVENDAYSHOLIDAYS/BetterGiveUp/), one of the [mu3-mods](https://gitea.tendokyu.moe/akanyan/mu3-mods) collection.

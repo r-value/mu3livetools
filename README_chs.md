@@ -26,7 +26,7 @@
    + 当前技术分（类型-[^3]），包含NOTE子分数和BELL子分数
    + 当前技术RATING，受当前技术分和当前可获得标记的影响
    + 当前白金分、星级、白金RATING（均为类型-）
-   + 当前游玩次数序号、本游玩过程中重试次数
+   + 当前游玩次数序号、本游玩过程中重试次数[^4]
    + 当前可获得的标记
    + 之前已获得的标记
    + 各个判定的计数，包含FAST和LATE计数
@@ -69,3 +69,5 @@ https://github.com/user-attachments/assets/650c7f36-503a-48a1-be22-9209c5188635
 [^2]:单谱的白金RATING，由达成的**星级**决定。关于进一步的定义，请参阅[此处](https://silentblue.remywiki.com/ONGEKI:Rating#Star_rating_(Re:Fresh))。
 
 [^3]:类型-，即从最高分开始计算，一旦失误则进行相应扣分。
+
+[^4]:重试功能由另一个mod——[BetterGiveUp](https://www.rainycolor.org/package/7EVENDAYSHOLIDAYS/BetterGiveUp/)提供。该mod被收录于[mu3-mods](https://gitea.tendokyu.moe/akanyan/mu3-mods)中。
