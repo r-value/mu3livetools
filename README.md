@@ -1,6 +1,4 @@
 # MU3 Live Tools
-[English](./README.md)
-[简体中文](./README_chs.md)
 
 A web overlay mod which exports some real-time gameplay information
 
