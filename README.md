@@ -18,15 +18,15 @@ Supported data and functions:
  + Performance analysis of currently selected music / chart
    + Best Technical Score (T-Score)
    + Best T-Score Rating[^1] of current chart
-   + Best Platinum Score (P-Score), Stars and P-Score Rating[^2] of current chart
+   + Best Platinum Score (P-Score), Stars and P-Score Rating[^1] of current chart
    + Total play count of previous sessions
    + Achieved Badges
    + Rank of current chart in your Rating list
  + Real time performance analysis during gameplay
-   + Current T-Score in minus style[^3], including subscores for Notes and Bells
+   + Current T-Score in minus style[^2], including subscores for Notes and Bells
    + Current T-Score Rating, which coresponds to current T-Score and will-be-achieved Badges
    + Current P-Score, Stars and P-Score Rating in minus style
-   + Play number and retry count[^4] of current session
+   + Play number and retry count[^3] of current session
    + Will-be-achieved Badges in current gameplay
    + Achieved Badges in previous records
    + Counters of all note judgements, including Fast and Late counters
@@ -64,10 +64,8 @@ Put game assembly `Assembly-CSharp.dll` to `lib/` and use `dotnet build`
  * This mod may crash the game if you have malformed option data installed with missing music jackets.
  * This mod relies on specific scene sequences to synchronize state, and scene-skipping mods may cause it to malfunction.
 
-[^1]:Per-chart T-Score Rating is based on **Technical Score** and achieved **Badge bonuses**. Refer [here](https://silentblue.remywiki.com/ONGEKI:Rating#Score_rating_(Re:Fresh)) for further definitions.
+[^1]:To help distinguish between the two different types of Rating, prefixes will be added to differentiate them.
 
-[^2]:Per-chart P-Score Rating is based on **Stars count**. Refer [here](https://silentblue.remywiki.com/ONGEKI:Rating#Star_rating_(Re:Fresh)) for further definitions.
+[^2]:Minus style is a scoring method that starts from the highest score and deducts corresponding points for mistakes.
 
-[^3]:Minus style is a scoring method that starts from the highest score and deducts corresponding points for mistakes.
-
-[^4]:Retry function is provided by [BetterGiveUp](https://www.rainycolor.org/package/7EVENDAYSHOLIDAYS/BetterGiveUp/), one of the [mu3-mods](https://gitea.tendokyu.moe/akanyan/mu3-mods) collection.
+[^3]:Retry function is provided by another mod.
