@@ -71,8 +71,15 @@
                     </div>
                     <div class="music-info-box" style="display: flex; flex-direction: column; gap: 2px;">
                         <div style="display: flex; align-items: center;">
-                            <div class="music-level" style="width: 40%;">
-                                {{ mu3.musicLevel.toFixed(1) }}
+                            <div class="music-level" style="width: 40%; display: flex; align-items: flex-end; justify-content: center;">
+                                <div class="major">
+                                    {{ Math.floor(mu3.musicLevel) }}
+                                    <div v-if="mu3.musicLevel % 1 > 0.65" class="plus">+</div>
+                                </div>
+                                <div class="major">.</div>
+                                <div class="minor">
+                                    {{ ((mu3.musicLevel % 1) * 10).toFixed(0) }}
+                                </div>
                             </div>
                             <div class="music-difficulty" style="width: 60%;">
                                 {{ mu3.difficulty }}

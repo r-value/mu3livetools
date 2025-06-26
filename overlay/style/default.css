@@ -184,10 +184,23 @@ body {
     line-height: 25px;
 }
 .music-level {
+    font-weight: 450;
+}
+.music-level .major {
     font-size: 35px;
     line-height: 40px;
-    font-weight: 450;
-    text-align: center;
+    position: relative;
+}
+.music-level .plus{
+    position: absolute;
+    top: -12.5px;
+    right: -12.5px;
+    font-size: 30px;
+}
+.music-level .minor {
+    font-size: 25px;
+    line-height: 30px;
+    padding-bottom: 1.5px;
 }
 .music-difficulty {
     font-weight: 600;
