@@ -385,7 +385,7 @@ public class GameState
                 break;
         }
 
-        best.LoadFrom(state);
+        if (!isInGame) best.LoadFrom(state);
 
         judgeCrBreak.count = state.judgeCount[3][0];
         judgeCrBreak.early = state.judgeCount[3][1];
