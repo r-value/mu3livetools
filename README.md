@@ -60,7 +60,6 @@ Put game assembly `Assembly-CSharp.dll` to `lib/` and use `dotnet build`
 ## Known issues
 
  * This mod may crash the game if you have malformed option data installed with missing music jackets.
- * This mod relies on specific scene sequences to synchronize state, and scene-skipping mods may cause it to malfunction.
 
 [^1]:To help distinguish between the two different types of Rating, prefixes will be added to differentiate them.
 
