@@ -24,6 +24,7 @@ Supported data and functions:
    + Current T-Score in minus style[^2], including subscores for Notes and Bells
    + Current T-Score Rating, which coresponds to current T-Score and will-be-achieved Badges
    + Current P-Score, Stars and P-Score Rating in minus style
+   + Current T-Score relative to personal best T-Score
    + Play number and retry count[^3] of current session
    + Will-be-achieved Badges in current gameplay
    + Achieved Badges in previous records
