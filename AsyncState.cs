@@ -133,10 +133,10 @@ public class AsyncState
 
     public void StartPlay() {
         isInPlay = true;
-        retryCount = 0;
     }
 
     public void StartTry() {
+        isInPlay = true;
         ++retryCount;
     }
 
@@ -147,6 +147,7 @@ public class AsyncState
     public void EndPlay() {
         isInPlay = false;
         isInResult = false;
+        retryCount = 0;
         ResetCounter();
     }
 
